@@ -110,8 +110,16 @@ def compute_document_frequencies(bow_matrix: np.ndarray) -> np.ndarray:
                 out[i] += 1
     return out
 
-# Step 10 - compute_idf (not yet solved)
-# TODO: implement
+# Step 10 - compute_idf
+def compute_idf(df: np.ndarray, n_docs: int) -> np.ndarray:
+    # TODO: Compute smoothed IDF idf_j = log((n_docs + 1) / (df_j + 1)) + 1
+    v = len(df)
+    out = np.zeros(v)
+
+    for i in range(v): 
+        idf = np.log((n_docs + 1)/(df[i] + 1)) + 1
+        out[i] = idf
+    return out
 
 # Step 11 - transform_tfidf (not yet solved)
 # TODO: implement
