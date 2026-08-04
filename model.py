@@ -136,8 +136,11 @@ def sigmoid(z: np.ndarray) -> np.ndarray:
     # TODO: Map logits to probabilities with a numerically stable logistic sigmoid.
     return 1 / (1+np.exp(-z))
 
-# Step 14 - logistic_predict_proba (not yet solved)
-# TODO: implement
+# Step 14 - logistic_predict_proba
+def logistic_predict_proba(X: np.ndarray, w: np.ndarray, b: float) -> np.ndarray:
+    # TODO: Return P(y=1|x) for each row via linear scores and sigmoid
+    probs = np.dot(X, w) + b
+    return sigmoid(probs)
 
 # Step 15 - binary_cross_entropy (not yet solved)
 # TODO: implement
