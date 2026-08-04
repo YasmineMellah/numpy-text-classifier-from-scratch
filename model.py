@@ -74,7 +74,7 @@ def tokens_to_bow(tokens: list, vocab: dict) -> np.ndarray:
         token_count[token] = 1.0 + token_count.get(token, 0.0)
     
     for word, idx in vocab.items():
-        if word in token_count.keys(): 
+        if word in token_count: 
             out[idx] = token_count[word]
     return np.array(out)
 
