@@ -212,7 +212,6 @@ def predict_labels(proba: np.ndarray, threshold: float = 0.5) -> np.ndarray:
 
 # Step 21 - confusion_counts
 def confusion_counts(y_true: np.ndarray, y_pred: np.ndarray) -> tuple:
-    # TODO: Return the four confusion-matrix counts (tp, fp, tn, fn) as Python ints
     tp, fp, tn, fn = 0, 0, 0, 0
 
     for i in range(len(y_true)):
