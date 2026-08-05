@@ -302,7 +302,7 @@ def predict_text(text: str, vocab: dict, idf: np.ndarray, w: np.ndarray, b: floa
     proba = logistic_predict_proba(X, w, b) 
     label = predict_labels(proba, threshold)
 
-    return int(label[0])
+    return label[0]
 
 # Step 27 - collect_prediction_errors (not yet solved)
 # TODO: implement
