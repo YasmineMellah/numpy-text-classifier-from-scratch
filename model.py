@@ -226,16 +226,39 @@ def confusion_counts(y_true: np.ndarray, y_pred: np.ndarray) -> tuple:
     return (tp, fp, tn, fn)
 
 # Step 22 - metrics_from_counts
-def metrics_from_counts(tp: int, fp: int, tn: int, fn: int) -> dict:    
-    precision = tp / (tp + fp)
-    recall = tp / (tp + fn)
+def metrics_from_counts(tp: int, fp: int, tn: int, fn: int) -> dict:
+    import numpy as np 
+    total = tp + fp + tn + fn
+    precision = tp / (tp + fp) if (tp + fp) > 0 else 0.0
+    recall = tp / (tp + fn) if (tp + fn) > 0 else 0.0
+    f1 = (2 * precision * recall / (precision + recall)) if (precision + recall) > 0 else 0.0
+    accuracy = (tp + tn) / total if total > 0 else 0.0
+    return {'precision': float(precision),
+        'recall': float(recall),
+        'f1': float(f1),
+        'accuracy': float(accuracy)}
 
-    f1 = 2 * precision * recall / (precision + recall)
-    accuracy = (tp + tn) / (tp + fp + tn + fn)
-    return {'precision': precision, 'recall': recall, 'f1': f1, 'accuracy': accuracy}
+# Step 23 - tune_decision_threshold
+def tune_decision_threshold(y_true: np.ndarray, proba: np.ndarray, thresholds: np.ndarray = None) -> tuple:
+    if thresholds is None:
+        thresholds = np.linspace(0.0, 1.0, 101)
 
-# Step 23 - tune_decision_threshold (not yet solved)
-# TODO: implement
+    best_threshold = None
+    best_f1 = -1.0
+
+    for threshold in thresholds:
+        y_pred = predict_labels(proba, threshold)
+
+        tp, fp, tn, fn = confusion_counts(y_true, y_pred)
+
+        metrics = metrics_from_counts(tp, fp, tn, fn)
+        f1 = metrics["f1"]
+
+        if f1 > best_f1:
+            best_f1 = f1
+            best_threshold = threshold
+
+    return float(best_threshold), float(best_f1)
 
 # Step 24 - evaluate_predictions (not yet solved)
 # TODO: implement
