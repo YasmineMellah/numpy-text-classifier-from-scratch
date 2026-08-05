@@ -65,8 +65,8 @@ def build_vocabulary(word_counts: dict, max_size: int) -> dict:
    return {word: i for i, (word, _) in enumerate(kept_words)}
 
 # Step 7 - tokens_to_bow
+import numpy as np
 def tokens_to_bow(tokens: list, vocab: dict) -> np.ndarray:
-    # TODO: Convert one document's token list into a bag-of-words count vector...
     token_count = {}
     out = [0.0] * len(vocab)
 
